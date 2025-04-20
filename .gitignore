@@ -1,0 +1,6 @@
+/gutenberg_tokenized
+/gutenberg
+/processed_files.txt
+/model_checkpoints
+__pycache__
+.DS_Store

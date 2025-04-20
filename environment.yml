@@ -1,0 +1,21 @@
+name: pretrain-gpt
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - setuptools
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - tqdm
+  - jupyterlab
+  - langdetect
+  - tiktoken
+  - lxml
+  - pillow
+  
+  - pip:
+      - torch==2.6.0

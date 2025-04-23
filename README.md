@@ -66,13 +66,6 @@ Skipping gutenberg/data/raw/PG29836_raw.txt as it does not contain primarily Eng
 ```
 
 
-> **Tip:**
-> Note that the produced files are stored in plaintext format and are not pre-tokenized for simplicity. However, you may want to update the codes to store the dataset in a pre-tokenized form to save computation time if you are planning to use the dataset more often or train for multiple epochs. See the *Design Decisions and Improvements* at the bottom of this page for more information.
-
-> **Tip:**
-> You can choose smaller file sizes, for example, 50 MB. This will result in more files but might be useful for quicker pretraining runs on a small number of files for testing purposes.
-
-
 &nbsp;
 ### 3) Run the pretraining script
 

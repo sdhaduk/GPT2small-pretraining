@@ -1,11 +1,5 @@
 # Pretraining GPT on the Project Gutenberg Dataset
 
-The code in this directory contains code for training a small GPT model on the free books provided by Project Gutenberg.
-
-As the Project Gutenberg website states, "the vast majority of Project Gutenberg eBooks are in the public domain in the US."
-
-Please read the [Project Gutenberg Permissions, Licensing and other Common Requests](https://www.gutenberg.org/policy/permission.html) page for more information about using the resources provided by Project Gutenberg.
-
 &nbsp;
 ## How to Use This Code
 
@@ -53,29 +47,7 @@ python get_data.py
 cd ..
 ```
 
-&nbsp;
-#### Special instructions for Windows users
 
-The [`pgcorpus/gutenberg`](https://github.com/pgcorpus/gutenberg) code is compatible with both Linux and macOS. However, Windows users would have to make small adjustments, such as adding `shell=True` to the `subprocess` calls and replacing `rsync`.
-
-Alternatively, an easier way to run this code on Windows is by using the "Windows Subsystem for Linux" (WSL) feature, which allows users to run a Linux environment using Ubuntu in Windows. For more information, please read [Microsoft's official installation instruction](https://learn.microsoft.com/en-us/windows/wsl/install) and [tutorial](https://learn.microsoft.com/en-us/training/modules/wsl-introduction/).
-
-When using WSL, please make sure you have Python 3 installed (check via `python3 --version`, or install it for instance with `sudo apt-get install -y python3.10` for Python 3.10) and install following packages there:
-
-```bash
-sudo apt-get update && \
-sudo apt-get upgrade -y && \
-sudo apt-get install -y python3-pip && \
-sudo apt-get install -y python-is-python3 && \
-sudo apt-get install -y rsync
-```
-
-> **Note:**
-> Instructions about how to set up Python and installing packages can be found in [Optional Python Setup Preferences](../../setup/01_optional-python-setup-preferences/README.md) and [Installing Python Libraries](../../setup/02_installing-python-libraries/README.md).
->
-> Optionally, a Docker image running Ubuntu is provided with this repository. Instructions about how to run a container with the provided Docker image can be found in [Optional Docker Environment](../../setup/03_optional-docker-environment/README.md).
-
-&nbsp;
 ### 2) Prepare the dataset
 
 Next, run the `prepare_dataset.py` script, which concatenates the (as of this writing, 60,173) text files into fewer larger files so that they can be more efficiently transferred and accessed:
@@ -156,19 +128,3 @@ python -u pretraining_simple.py | tee log.txt
 > **Warning:**
 > Note that training on 1 of the ~500 Mb text files in the `gutenberg_preprocessed` folder will take approximately 4 hours on a V100 GPU.
 > The folder contains 47 files and will take approximately 200 hours (more than 1 week) to complete. You may want to run it on a smaller number of files.
-
-
-&nbsp;
-## Design Decisions and Improvements
-
-Note that this code focuses on keeping things simple and minimal for educational purposes. The code could be improved in the following ways to improve modeling performance and training efficiency:
-
-1. Modify the `prepare_dataset.py` script to strip the Gutenberg boilerplate text from each book file.
-2. Update the data preparation and loading utilities to pre-tokenize the dataset and save it in a tokenized form so that it doesn't have to be re-tokenized each time when calling the pretraining script.
-3. Update the `train_model_simple` script by adding the features introduced in [Appendix D: Adding Bells and Whistles to the Training Loop](../../appendix-D/01_main-chapter-code/appendix-D.ipynb), namely, cosine decay, linear warmup, and gradient clipping.
-4. Update the pretraining script to save the optimizer state (see section *5.4 Loading and saving weights in PyTorch* in chapter 5; [ch05.ipynb](../../ch05/01_main-chapter-code/ch05.ipynb)) and add the option to load an existing model and optimizer checkpoint and continue training if the training run was interrupted.
-5. Add a more advanced logger (for example, Weights and Biases) to view the loss and validation curves live
-6. Add distributed data parallelism (DDP) and train the model on multiple GPUs (see section *A.9.3 Training with multiple GPUs* in appendix A; [DDP-script.py](../../appendix-A/01_main-chapter-code/DDP-script.py)).
-7. Swap the from scratch `MultiheadAttention` class in the `previous_chapter.py` script with the efficient `MHAPyTorchScaledDotProduct` class implemented in the [Efficient Multi-Head Attention Implementations](../../ch03/02_bonus_efficient-multihead-attention/mha-implementations.ipynb) bonus section, which uses Flash Attention via PyTorch's `nn.functional.scaled_dot_product_attention` function.
-8. Speeding up the training by optimizing the model via [torch.compile](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) (`model = torch.compile`) or [thunder](https://github.com/Lightning-AI/lightning-thunder) (`model = thunder.jit(model)`).
-9. Implement Gradient Low-Rank Projection (GaLore) to further speed up the pretraining process. This can be achieved by just replacing the `AdamW` optimizer with the provided `GaLoreAdamW` provided in the [GaLore Python library](https://github.com/jiaweizzhao/GaLore).

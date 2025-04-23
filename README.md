@@ -79,43 +79,6 @@ python pretraining_simple.py \
   --output_dir model_checkpoints
 ```
 
-The output will be formatted in the following way:
-
-> Total files: 3
-> Tokenizing file 1 of 3: data_small/combined_1.txt
-> Training ...
-> Ep 1 (Step 0): Train loss 9.694, Val loss 9.724
-> Ep 1 (Step 100): Train loss 6.672, Val loss 6.683
-> Ep 1 (Step 200): Train loss 6.543, Val loss 6.434
-> Ep 1 (Step 300): Train loss 5.772, Val loss 6.313
-> Ep 1 (Step 400): Train loss 5.547, Val loss 6.249
-> Ep 1 (Step 500): Train loss 6.182, Val loss 6.155
-> Ep 1 (Step 600): Train loss 5.742, Val loss 6.122
-> Ep 1 (Step 700): Train loss 6.309, Val loss 5.984
-> Ep 1 (Step 800): Train loss 5.435, Val loss 5.975
-> Ep 1 (Step 900): Train loss 5.582, Val loss 5.935
-> ...
-> Ep 1 (Step 31900): Train loss 3.664, Val loss 3.946
-> Ep 1 (Step 32000): Train loss 3.493, Val loss 3.939
-> Ep 1 (Step 32100): Train loss 3.940, Val loss 3.961
-> Saved model_checkpoints/model_pg_32188.pth
-> Book processed 3h 46m 55s
-> Total time elapsed 3h 46m 55s
-> ETA for remaining books: 7h 33m 50s
-> Tokenizing file 2 of 3: data_small/combined_2.txt
-> Training ...
-> Ep 1 (Step 32200): Train loss 2.982, Val loss 4.094
-> Ep 1 (Step 32300): Train loss 3.920, Val loss 4.097
-> ...
-
-
-&nbsp;
-> **Tip:**
-> In practice, if you are using macOS or Linux, I recommend using the `tee` command to save the log outputs to a `log.txt` file in addition to printing them on the terminal:
-
-```bash
-python -u pretraining_simple.py | tee log.txt
-```
 
 &nbsp;
 > **Warning:**

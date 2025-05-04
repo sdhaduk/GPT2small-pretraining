@@ -89,7 +89,7 @@ def calc_loss_loader(data_loader, model, device, num_batches=None):
 
 def evaluate_model(model, train_loader, val_loader, device, eval_iter):
     model.eval()
-    with torch.no_grad():
+    with torch.no_grad(): 
         train_loss = calc_loss_loader(
             train_loader, model, device, num_batches=eval_iter)
         val_loss = calc_loss_loader(

@@ -315,7 +315,7 @@ if __name__ == "__main__":
     all_files = [os.path.join(path, name) for path, subdirs, files
                  in os.walk(data_dir) for name in files if name.endswith((".pt"))]
     all_files = sorted(all_files, key=extract_number)
-    all_files = all_files[-15:]
+    all_files = all_files
     print(all_files)
 
     total_files = len(all_files)

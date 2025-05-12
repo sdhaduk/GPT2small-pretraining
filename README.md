@@ -61,7 +61,7 @@ python prepare_dataset.py \
 You can run the pretraining script as follows. Note that the additional command line arguments are shown with the default values for illustration purposes. You dont have to add these arguments when running the script as they are default values, and you can change them to fit your folder structure. If you do change the batch size make sure you also change the learning rates to account for that.
 
 ```bash
-python pretraining_simple.py \
+python pretrain.py \
   --data_dir "gutenberg_tokenized" \
   --n_epochs 1 \
   --batch_size 8 \
@@ -70,7 +70,7 @@ python pretraining_simple.py \
 
 You can interrupt training and resume it at exactly where you left off my providing the --resume_from arg like so: 
 ```bash
-python pretraining_simple.py \
+python pretrain.py \
 --resume_from "model_checkpoints/checkpoint_stepxyz.pt" \
 ```
 
